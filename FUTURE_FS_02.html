@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini CRM</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f4f4f4;
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+h1{
+    text-align:center;
+    color:#333;
+}
+
+.form-box{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    background:#007bff;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th, td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+th{
+    background:#007bff;
+    color:white;
+}
+
+.delete-btn{
+    background:red;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Client Lead Management System</h1>
+
+<div class="form-box">
+    <input type="text" id="name" placeholder="Client Name">
+    <input type="email" id="email" placeholder="Email">
+    
+    <select id="status">
+        <option value="New">New</option>
+        <option value="Contacted">Contacted</option>
+        <option value="Converted">Converted</option>
+    </select>
+
+    <button onclick="addLead()">Add Lead</button>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="leadTable">
+    </tbody>
+</table>
+
+</div>
+
+<script>
+function addLead(){
+
+    let name=document.getElementById("name").value;
+    let email=document.getElementById("email").value;
+    let status=document.getElementById("status").value;
+
+    if(name==="" || email===""){
+        alert("Please fill all fields");
+        return;
+    }
+
+    let table=document.getElementById("leadTable");
+
+    let row=table.insertRow();
+
+    row.insertCell(0).innerHTML=name;
+    row.insertCell(1).innerHTML=email;
+    row.insertCell(2).innerHTML=status;
+
+    let deleteCell=row.insertCell(3);
+
+    deleteCell.innerHTML=
+    `<button class="delete-btn" onclick="deleteLead(this)">Delete</button>`;
+
+    document.getElementById("name").value="";
+    document.getElementById("email").value="";
+}
+
+function deleteLead(button){
+    let row=button.parentNode.parentNode;
+    row.remove();
+}
+</script>
+
+</body>
+</html>
